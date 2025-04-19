@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mental Math Flashcards</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 2rem;
+      background-color: #fef6e4;
+    }
+    .flashcard {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      max-width: 400px;
+      margin: 2rem auto;
+    }
+    input {
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      margin-top: 1rem;
+      cursor: pointer;
+      background-color: #ffd803;
+      border: none;
+      border-radius: 8px;
+    }
+    .message {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="flashcard">
+    <h2 id="question">Loading...</h2>
+    <input type="number" id="answer" placeholder="Your answer" />
+    <br />
+    <button onclick="submitAnswer()">Submit</button>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    const flashcards = [
+      { question: "What is 7 + 6?", answer: 13 },
+      { question: "What is 15 - 8?", answer: 7 },
+      { question: "What is 9 + 4?", answer: 13 },
+      { question: "What is 12 - 5?", answer: 7 },
+      { question: "What is 6 + 9?", answer: 15 },
+      { question: "What is 17 - 9?", answer: 8 },
+      { question: "What is 10 + 7?", answer: 17 },
+      { question: "What is 20 - 12?", answer: 8 },
+      { question: "What is 2 x 3?", answer: 6 },
+      { question: "What is 5 x 2?", answer: 10 },
+      { question: "What is 4 x 1?", answer: 4 },
+      { question: "What is 3 x 4?", answer: 12 },
+      { question: "What is 10 more than 15?", answer: 25 },
+      { question: "What number do you add to 6 to make 20?", answer: 14 },
+      { question: "What is the missing number: ___ + 8 = 17?", answer: 9 },
+      { question: "If you eat 4 apples from a basket of 12, how many are left?", answer: 8 },
+      { question: "You have 5 candies. Your friend gives you 7 more. How many do you have now?", answer: 12 },
+      { question: "There are 9 ducks in a pond. 3 fly away. How many are left?", answer: 6 },
+      { question: "You buy 2 packs of pencils. Each pack has 5 pencils. How many pencils do you have?", answer: 10 },
+      { question: "You see 3 spiders. Each has 8 legs. How many legs in total?", answer: 24 }
+    ];
+
+    let current = 0;
+
+    function loadQuestion() {
+      document.getElementById('message').textContent = '';
+      if (current < flashcards.length) {
+        document.getElementById('question').textContent = flashcards[current].question;
+        document.getElementById('answer').value = '';
+      } else {
+        document.querySelector('.flashcard').innerHTML = '<h2>🎉 Great job! You finished all the flashcards!</h2>';
+      }
+    }
+
+    function submitAnswer() {
+      const userAnswer = parseInt(document.getElementById('answer').value);
+      const correctAnswer = flashcards[current].answer;
+      const message = document.getElementById('message');
+
+      if (userAnswer === correctAnswer) {
+        message.textContent = "✅ Correct!";
+        message.style.color = "green";
+      } else {
+        message.textContent = `❌ Oops! The correct answer is ${correctAnswer}`;
+        message.style.color = "red";
+      }
+
+      current++;
+      setTimeout(loadQuestion, 1500);
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
